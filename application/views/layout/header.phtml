@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><?= isset($title)?$title:'Welcome to PFU' ?></title>    
+	<?= $html->includeCss('ui-lightness/jquery-ui-1.8.16.custom','screen'); ?>
+	<?= $html->includeCss('default','screen'); ?>
+	<?= $html->includeJs('jquery-1.6.2.min'); ?>
+	<?= $html->includeJs('jquery-ui-1.8.16.custom.min'); ?>
+	<?= $html->includeJs('jquery.dataTables.min'); ?>
+</head>
+<body>
+	<div id="main-wrapper">
+		<div id ="header">
+			<div class="logo"><?= $html->imgTag('pfu','png')?></div>
+		</div>
+		<div style="clear:both"></div>
+		<div id="content-wrapper">

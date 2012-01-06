@@ -1,0 +1,63 @@
+<div class="login-wrapper">
+	
+		<div class ="account-left">
+			<span class="change-pass">Welcome, <?= $session->__get('first_name') . ' ' . $session->__get('last_name') ?></span>
+			</br>
+			<ul>
+				<li><?= $html->link('Change Password','#','change-pass show'); ?></li>
+				<li><?= $html->link('Request Task','/task/index','change-pass'); ?></li>
+				<li><?= $html->link('Request Sub-Task','/subtask/sub','change-pass'); ?></li>
+				<li><?= $html->link('List My Tasks','/task/list','change-pass'); ?></li>
+				<li><?= $html->link('List My Sub-Tasks','/subtask/sublist','change-pass'); ?></li>
+		</div>
+		<div class="account-right">
+			<div id="change-pass-box">
+				<?= $form; ?>
+			</div>
+			<div class="txt-msg"></div>
+		</div>
+</div>
+<script>
+var npass,vpass = '';
+	$(document).ready(function(){
+		$('#change-pass-box').hide();
+		$('.txt-msg').hide();
+		$('a.show').click(function(e){
+			e.preventDefault();
+			$('#change-pass-box').slideToggle('slow');
+		});
+		$('.verify-password,.new-password').after('<span class="match"><?= $html->imgTag('icons/bullet_red','png','verified')?></span>');
+		$('input[name=verify_password],input[name=password]').bind('keyup', function(e) {
+			if($('input[name=verify_password]').val() == $('input[name=password]').val()){
+				$('img.verified').attr('src','/img/icons/bullet_green.png');
+			}else{
+				$('img.verified').attr('src','/img/icons/bullet_red.png');
+			}
+		});
+		$('input[name=update]').click(function(e){
+			e.preventDefault();
+			if($('input[name=verify_password]').val() == $('input[name=password]').val()){
+				$('.txt-msg').hide();
+				$.post('/user/updatepass',
+					{'old_password':$('input[name=old_password]').val(),'password':$('input[name=password]').val(),'verify_password':$('input[name=verify_password]').val()},
+					function(data){
+						$('.txt-msg').slideDown('slow');
+						obj = $.parseJSON( data )
+						$( ".txt-msg" ).empty().append(obj.msg);
+						setTimeout(function(){
+							$('.txt-msg').slideUp('slow');
+						},3000);
+					}
+				);
+			}else{
+				$('.txt-msg').slideDown('slow');
+				$('.txt-msg').html('Passwords do not match, please fix and resubmit.');
+				setTimeout(function(){
+					$('.txt-msg').slideUp('slow');
+				},3000);								
+				return false;
+			}
+		});
+		
+	});
+</script>

@@ -1,0 +1,135 @@
+<div class="login-wrapper">
+	<div class="login-title"><h2>Register Your Account</h2></div>
+	<?= $form ?>
+</div>
+<script>
+ $(document).ready(function() {
+  	$("input[name=email]").after('<div class="msg"></div>');
+	$("input[name=email]").after('<span class="match"><?= $html->imgTag('icons/bullet_red','png','verified')?></span>');
+	$("input[name=email]").bind('keyup',function(){
+		$this = $(this);
+		//todo: if valid email then post ajax else error
+		if(validate($this.val())){
+			if($this.val().length > 5){			
+				$.ajax({
+		  			url: "/user/checkuser",
+		  			type: "POST",
+		  			data: {email : $this.val()},
+		  			dataType: "json",
+		  			success: function(data){		
+						if(data.success == true){
+							$('img.verified').attr('src','/img/icons/bullet_green.png');
+						}else{
+							$('img.verified').attr('src','/img/icons/bullet_red.png');
+							$('.msg').slideDown('slow');
+							$('.msg').css({'color':'#f00','position':'absolute','float':'left','right':'365px','top':'150px'});
+					    	$('.msg').html(data.msg);
+							setTimeout(function(){
+								$('.msg').slideUp('slow');
+							},3000);												
+						}							
+					},
+					error: function(data){
+						return false;	
+					}
+				});
+			}
+		}
+	});	
+	$('input[name=submit]').click(function(e){
+		if($('input[name=first_name]').val()=='' || $('input[name=first_name]').val() =='First Name'){
+			e.preventDefault();
+			$('.msg').slideDown('slow');
+			$('.msg').css({'color':'#f00','position':'absolute','float':'left','right':'365px','top':'150px'});
+		    $('.msg').html('Please enter a valid first name');
+			setTimeout(function(){
+				$('.msg').slideUp('slow');
+			},3000);			
+		}
+		if($('input[name=last_name]').val()=='' || $('input[name=last_name]').val() =='Last Name'){
+			e.preventDefault();
+			$('.msg').slideDown('slow');
+			$('.msg').css({'color':'#f00','position':'absolute','float':'left','right':'365px','top':'150px'});
+		    $('.msg').html('Please enter a valid last name');
+			setTimeout(function(){
+				$('.msg').slideUp('slow');
+			},3000);			
+		}	
+		if($('input[name=email]').val()=='' || $('input[name=email]').val() =='Email Address'){
+			e.preventDefault();
+			$('.msg').slideDown('slow');
+			$('.msg').css({'color':'#f00','position':'absolute','float':'left','right':'365px','top':'150px'});
+		    $('.msg').html('Please enter a valid email address');
+			setTimeout(function(){
+				$('.msg').slideUp('slow');
+			},3000);			
+		}			
+		if($('input[name=verify_password]').val() != $('input[name=password]').val()){
+			e.preventDefault();
+			$('.msg').slideDown('slow');
+			$('.msg').css({'color':'#f00','position':'absolute','float':'left','right':'365px','top':'150px'});
+		    $('.msg').html('Passwords do not match');
+			setTimeout(function(){
+				$('.msg').slideUp('slow');
+			},3000);			
+		}
+	});
+	
+ 	$('input[name=first_name]').click(function(){
+		if($(this).val() == 'First Name'){
+			$(this).val('');
+		}
+	});
+ 	$('input[name=last_name]').click(function(){
+		if($(this).val() == 'Last Name'){
+			$(this).val('');
+		}
+	});	
+ 	$('input[name=email]').click(function(){
+		if($(this).val() == 'Email Address'){
+			$(this).val('');
+		}
+	});	
+	$('input[name=password]').click(function(){
+			$(this).val('');
+	});
+	$('input[name=verify_password]').click(function(){
+			$(this).val('');
+	});	
+	
+ 	$('input[name=first_name]').blur(function(){
+		if($(this).val() == ''){
+			$(this).val('First Name');
+		}
+	});	
+ 	$('input[name=last_name]').blur(function(){
+		if($(this).val() == ''){
+			$(this).val('Last Name');
+		}
+	});	
+ 	$('input[name=email]').blur(function(){
+		if($(this).val() == ''){
+			$(this).val('Email Address');
+			return;
+		}
+		if(!validate($(this).val())){
+			$('.msg').slideDown('slow');
+			$('.msg').css({'color':'#f00','position':'absolute','float':'left','right':'365px','top':'150px'});
+		    $('.msg').html('Please enter a valid email address');
+		   	$('img.verified').attr('src','/img/icons/bullet_red.png');
+			setTimeout(function(){
+				$('.msg').slideUp('slow');
+			},3000);			
+		}
+	});	
+ });
+
+	function validate(email) {
+	   var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	   if(reg.test(email) == false) {
+	      return false;
+	   }else{
+		return true;
+		}
+	}
+</script>

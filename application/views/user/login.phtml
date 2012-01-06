@@ -1,0 +1,28 @@
+<div class="login-wrapper">
+	<div class="login-title"><h2>Log In To Your Account</h2></div>
+	<?php
+	if($session == ''){
+		echo $form;
+		?>		
+	<?php }else{ ?>
+		Welcome, <?= $session->__get('first_name') . ' ' . $session->__get('last_name') ?>
+	<?php } ?>
+</div>
+<script>
+ $(document).ready(function() {
+ 	$('input[name=email]').click(function(){
+		if($(this).val() == 'Email Address'){
+			$(this).val('');
+		}
+	});	
+	$('input[name=password]').click(function(){
+			$(this).val('');
+	});
+ 	$('input[name=email]').blur(function(){
+		if($(this).val() == ''){
+			$(this).val('Email Address');
+		}
+	});	
+ });
+ 	
+</script>
