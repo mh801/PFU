@@ -9,7 +9,7 @@ class userController extends BaseController{
 		$this->_form->addLabel('email','Email','form');
 		$this->_form->addElement('text','email', 'Email Address', true);
 		$this->_form->addLabel('password','Password','form');
-		$this->_form->addElement('password','password', 'Password', true, 'password');
+		$this->_form->addElement('password','password', 'Password', true, 'password');	
 		$this->_form->addElement('submit','LogIn', 'Log In', false, 'submit');		
 		$html = $this->_form->render();	
 		$this->set('form',$html);	
@@ -149,7 +149,7 @@ class userController extends BaseController{
 				$session = new Session();
 				$session->setFile();
 				$session->set($this->User);		
-				header("location:/task/index");
+				header("location:/");
 				redirectAction('main','main');
 			}else{
 				$msg = new Message();

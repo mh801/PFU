@@ -10,19 +10,19 @@ define('PASSWORD_SALT','pfutopian');
 
 /* So we can use any dev DB we want */
 if(DEVELOPMENT_ENVIRONMENT){
-	define('DB_NAME', 'test');
+	define('DB_NAME', 'mhcommerce');
 	define('DB_USER', 'root');
 	define('DB_PASSWORD', '');
 	define('DB_HOST', '127.0.0.1');	
 	/*always use trailing slash */
-	define('BASE_PATH','http://pfu.mac/');	
+	define('BASE_PATH','http://m.mac/');	
 }else{
-	define('DB_NAME', 'production');
+	define('DB_NAME', 'mhcommerce');
 	define('DB_USER', 'root');
 	define('DB_PASSWORD', '');
 	define('DB_HOST', 'localhost');	
 	/*always use trailing slash */
-	define('BASE_PATH','http://pfu.com/');
+	define('BASE_PATH','http://m.mac/');
 }
 
 

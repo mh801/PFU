@@ -90,7 +90,7 @@ class Session {
 		session_start();
 		$this->session_id = session_id();		
 		//setcookie('session',session_id());		
-		ini_set('session.save_path',ROOT.DS.'tmp'.DS.'sessions'.DS.$this->_file);
+		ini_set('session.save_path',ROOT.'/..'.DS.'tmp'.DS.'sessions'.DS.$this->_file);
 		$_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
 		$_SESSION['data'] = $variable;
 		$fileName = ROOT.DS.'tmp'.DS.'sessions'.DS.$this->session_id;

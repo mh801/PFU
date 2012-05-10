@@ -1,16 +1,21 @@
 <?php
-	class Form extends HTML {
+	class Form extends upload {
 		protected $element = array();
 		protected $action;
 		protected $method = 'post';
 		protected $html = '';
 		protected $name = '';
+		protected $type ='';
 		protected $class = '';
 		protected $fieldset = true;
 		protected $wrapper_class = '';
 		protected $label = array();
 		function __construct(){
 			
+		}
+		
+		function type($type=''){
+			$this->type = $type;
 		}
 		
 		function useFieldset($param = true,$class=''){
@@ -41,7 +46,7 @@
 		public function render(){
 			/* render default fieldset? */
 			if($this->fieldset){
-				$this->html .= '<fieldset class="base-form"><form name="'. $this->name .'" action="'. $this->action .'" method="'. $this->method .'" class="'. $this->class .'">';
+				$this->html .= '<fieldset class="base-form"><form name="'. $this->name .'" enctype="'.$this->type.'" action="'. $this->action .'" method="'. $this->method .'" class="'. $this->class .'">';
 			}else{
 				$this->html .= '<div class="form-wrapper '.$this->wrapper_class.'">';
 			}
